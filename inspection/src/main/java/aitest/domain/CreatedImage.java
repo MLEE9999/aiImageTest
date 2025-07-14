@@ -12,4 +12,5 @@ public class CreatedImage extends AbstractEvent {
     private Long imageId;
     private String name;
     private String url;
+    private String Status;
 }

@@ -42,25 +42,17 @@ public class Ai {
 
     //<<< Clean Arch / Port Method
     public static void statusUpdate(InspectedImage inspectedImage) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Ai ai = new Ai();
-        repository().save(ai);
-
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(inspectedImage.get???()).ifPresent(ai->{
+        repository().findById(inspectedImage.getImageId()).ifPresent(ai->{
             
-            ai // do something
+            // inspectedImage에 있는 상태값으로 ai 상태 업데이트
+            ai.setStatus(inspectedImage.getStatus());
+
+            // 변경된 상태 저장
             repository().save(ai);
 
 
          });
-        */
+        
 
     }
     //>>> Clean Arch / Port Method

@@ -34,33 +34,17 @@ public class Result {
 
     //<<< Clean Arch / Port Method
     public static void imageInspection(CreatedImage createdImage) {
-        //implement business logic here:
+        repository().findById(createdImage.getImageId()).ifPresent(result -> {
+        // 상태 변경: createdImage에서 필요한 값 가져와서 setStatus 등 호출
+        result.setStatus(createdImage.getStatus());
 
-        /** Example 1:  new item 
-        Result result = new Result();
+        // 저장
         repository().save(result);
 
+        // 도메인 이벤트 생성 및 발행
         InspectedImage inspectedImage = new InspectedImage(result);
         inspectedImage.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        // if createdImage.dalleId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<, Object> aiMap = mapper.convertValue(createdImage.getDalleId(), Map.class);
-
-        repository().findById(createdImage.get???()).ifPresent(result->{
-            
-            result // do something
-            repository().save(result);
-
-            InspectedImage inspectedImage = new InspectedImage(result);
-            inspectedImage.publishAfterCommit();
-
-         });
-        */
+        });
 
     }
     //>>> Clean Arch / Port Method

@@ -9,5 +9,6 @@ import lombok.*;
 @ToString
 public class InspectedImage extends AbstractEvent {
 
-    private Long id;
+    private Long imageId;
+    private String status;
 }

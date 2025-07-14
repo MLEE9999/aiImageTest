@@ -12,7 +12,7 @@ spring:
         - id: create
           uri: http://localhost:8082
           predicates:
-            - Path=/ais/**, 
+            - Path=/ais/**, /aicreate/**
         - id: inspection
           uri: http://localhost:8083
           predicates:
