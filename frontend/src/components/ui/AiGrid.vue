@@ -25,7 +25,7 @@
 
       <div v-if="previewUrl" class="mt-5">
         <div>업로드 이미지 미리보기:</div>
-        <v-img :src="previewUrl" max-width="300" max-height="300" contain></v-img>
+        <v-img :src="previewUrl" max-width="1000" max-height="1500" contain></v-img>
       </div>
 
       <v-btn class="mt-5"
@@ -53,7 +53,7 @@
             sm="6"
             md="4"
           >
-            <v-img :src="url" max-width="300" max-height="300" contain></v-img>
+            <v-img :src="url" max-width="1000" max-height="1500" contain></v-img>
             <v-btn
               color="secondary"
               small
@@ -106,7 +106,7 @@
             sm="6"
             md="4"
           >
-            <v-img :src="url" max-width="300" max-height="300" contain></v-img>
+            <v-img :src="url" max-width="1000" max-height="1792" contain></v-img>
             <v-btn
               color="secondary"
               small
