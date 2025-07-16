@@ -36,14 +36,6 @@
         이미지 변형 (Variations) 생성
       </v-btn>
 
-      <v-btn class="mt-2"
-        color="info"
-        :disabled="!previewUrl || loading"
-        @click="uploadToAzure"
-      >
-        Azure에 이미지 저장
-      </v-btn>
-
       <v-progress-circular
         v-if="loading"
         indeterminate
@@ -82,7 +74,7 @@
         label="이미지 생성 텍스트 프롬프트"
         clearable
       ></v-text-field>
-
+    
       <v-select class="mt-5"
         v-model="model"
         :items="models"
@@ -95,14 +87,6 @@
         @click="generateImage"
       >
         텍스트로 이미지 생성
-      </v-btn>
-
-      <v-btn class="mt-2"
-        color="info"
-        :disabled="!generatedUrls.length || loading"
-        @click="uploadGeneratedToAzure"
-      >
-        Azure에 생성 이미지 저장
       </v-btn>
 
       <v-progress-circular
@@ -135,6 +119,9 @@
         </v-row>
       </div>
     </v-card>
+
+    <!-- 기존 테이블 등 기존 UI는 그대로 유지 -->
+
   </v-container>
 </template>
 
@@ -175,55 +162,11 @@ export default {
       this.previewUrl = URL.createObjectURL(fileObj);
       this.variationUrls = [];
     },
-    async generateVariation() {
-      this.loading = true;
-      this.variationUrls = [];
-      const file = Array.isArray(this.uploadedImage)
-        ? this.uploadedImage[0]
-        : this.uploadedImage;
-      if (!file) {
-        this.loading = false;
-        return;
-      }
-      const formData = new FormData();
-      formData.append('image', file);
-
-      try {
-        const response = await axios.post('/aicreate/variations', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        this.variationUrls = response.data;
-      } catch (error) {
-        this.snackbar.status = true;
-        this.snackbar.color = 'error';
-        this.snackbar.text = 'AI 이미지 변형 실패: ' + error.message;
-      } finally {
-        this.loading = false;
-      }
-    },
-    async generateImage() {
-      if (!this.prompt) return;
-      this.loading = true;
-      this.generatedUrls = [];
-
-      try {
-        const response = await axios.post('/aicreate/generate', null, {
-          params: { prompt: this.prompt, model: this.model },
-        });
-        this.generatedUrls = response.data;
-      } catch (error) {
-        this.snackbar.status = true;
-        this.snackbar.color = 'error';
-        this.snackbar.text = 'AI 이미지 생성 실패: ' + error.message;
-      } finally {
-        this.loading = false;
-      }
-    },
-    async uploadGeneratedToAzure() {
+    async uploadGeneratedToAzureReplicate() {
       if (!this.generatedUrls.length) return;
       try {
         for (const url of this.generatedUrls) {
-          await axios.post('/aicreate/upload-to-azure', { imageUrl: url });
+          await axios.post('/aicreate/upload-to-azure-replicate', { imageUrl: url });
         }
         this.snackbar.status = true;
         this.snackbar.color = 'success';
@@ -235,8 +178,10 @@ export default {
       }
     },
     downloadImage(url) {
+      // 이미지 URL로 a 태그 생성 후 클릭해서 다운로드 처리
       const a = document.createElement('a');
       a.href = url;
+      // URL에서 파일명 추출, 없으면 기본명
       const urlParts = url.split('/');
       const filename = urlParts[urlParts.length - 1].split('?')[0] || 'download.png';
       a.download = filename;

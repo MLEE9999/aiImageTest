@@ -30,6 +30,8 @@ declare module '@vue/runtime-core' {
     Payment: typeof import('./src/components/vo/Payment.vue')['default']
     Photo: typeof import('./src/components/vo/Photo.vue')['default']
     Rating: typeof import('./src/components/vo/Rating.vue')['default']
+    Replicate: typeof import('./src/components/ui/Replicate.vue')['default']
+    ReplicateGrid: typeof import('./src/components/ui/ReplicateGrid.vue')['default']
     Result: typeof import('./src/components/Result.vue')['default']
     ResultGrid: typeof import('./src/components/ui/ResultGrid.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

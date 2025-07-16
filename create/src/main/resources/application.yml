@@ -46,6 +46,12 @@ spring:
 openai:
     api:
       key: ${MY_API_KEY}
+replicate: 
+    api: 
+      key: ${MY_REPLICATE_KEY}
+azure:
+    storage:
+      connection-string: ${MY_AZURE_STOREAGE}
   
 
 logging:

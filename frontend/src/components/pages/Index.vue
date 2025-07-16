@@ -40,6 +40,10 @@ export default {
           text: "검사결과",
           link: "/results",
       },
+      {
+          text: "리플리케이트 테스트",
+          link: "/replicate",
+      },
     ],
   }),
 };

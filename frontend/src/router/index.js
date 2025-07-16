@@ -15,6 +15,10 @@ const router = createRouter({
       path: '/results',
       component: () => import('../components/ui/ResultGrid.vue'),
     },
+    {
+      path: '/replicate',
+      component: () => import('../components/ui/ReplicateGrid.vue'),
+    },
   ],
 })
 
